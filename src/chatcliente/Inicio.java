@@ -5,6 +5,7 @@
  */
 package chatcliente;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,17 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        usrnamefield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usrnamefieldActionPerformed(evt);
+            }
+        });
+        usrnamefield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usrnamefieldKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Ingrese su Nombre");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,22 +124,24 @@ public class Inicio extends javax.swing.JFrame {
     private void connButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connButtonActionPerformed
         // Obtener los parámetros de la conexión (IP, Puerto)
         String ip = ipfield.getText();
-        
+
         int port = 1409;
-        
+
         try {
             port = Integer.parseInt(portfield.getText());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             port = 1409;
         }
-        
+
         // Nombre de usuario
         String username = usrnamefield.getText();
-        
+
         // Intentar conexión al cliente
         try {
             Ventana v = new Ventana(ip, port, username);
             v.setVisible(true);
+            v.setSize(780, 540);
+            v.setLocationRelativeTo(null);
             this.dispose();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error al conectar con el "
@@ -135,6 +149,16 @@ public class Inicio extends javax.swing.JFrame {
                     "Error al conectar a servidor " + ip + ":" + port, 0);
         }
     }//GEN-LAST:event_connButtonActionPerformed
+
+    private void usrnamefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrnamefieldActionPerformed
+
+    }//GEN-LAST:event_usrnamefieldActionPerformed
+
+    private void usrnamefieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usrnamefieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            connButtonActionPerformed(null);
+        }
+    }//GEN-LAST:event_usrnamefieldKeyPressed
 
     /**
      * @param args the command line arguments
